@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\IncubadoraController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,3 +17,16 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/csrf_token', function () {
+    return csrf_token(); 
+});
+
+Route::get('/testGet', [IncubadoraController::class, "testGet"]);
+
+Route::post('/testPost', [IncubadoraController::class, "testPost"]);
+
+Route::put('/testPut', [IncubadoraController::class, "testPut"]);
+
+Route::delete('/testDelete', [IncubadoraController::class, "testDelete"]);
+
