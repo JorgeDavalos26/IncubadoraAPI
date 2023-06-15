@@ -16,5 +16,7 @@ class Data extends Model
     ];
 
     protected $table = 'Data';
+
+    public $timestamps = false;
     
 }

@@ -30,3 +30,6 @@ Route::delete('/testDelete', [IncubadoraController::class, "testDelete"]);
 
 Route::get('/status', [IncubadoraController::class, "getIncubatorStatus"]);
 Route::post('/tempAndHum', [IncubadoraController::class, "postTemperatureHumidityData"]);
+
+Route::post('/status', [IncubadoraController::class, "postIncubatorStatus"]);
+Route::get('/tempAndHum', [IncubadoraController::class, "getTemperatureHumidityData"]);

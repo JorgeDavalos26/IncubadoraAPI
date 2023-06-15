@@ -33,19 +33,48 @@ class IncubadoraController extends Controller
         return response()->json("test delete!");
     }
 
+    // For ESP32
 
     public function getIncubatorStatus(Request $req) {
-        $status = Data::where("Key", "Status")->first()->pluck("Value");
-
-        return response()->json(["status" => (int) $status]);
+        $status = Data::where("Key", "STATUS")->first();
+        return response()->json(["status" => (int) $status["Value"]]);
     }
 
     public function postTemperatureHumidityData(Request $req) {
         $temp = $req->input('temperature');
         $humidity = $req->input('humidity');
 
-        Data::where("Key", "Temperature")->update(["Value" => $temp]);
-        Data::where("Key", "Humidity")->update(["Value" => $humidity]);
+        try {
+            Data::where("Key", "TEMPERATURE")->update(["Value" => $temp]);
+            Data::where("Key", "HUMIDITY")->update(["Value" => $humidity]);
+        }
+        catch(Exception $e) {
+            return response()->json(["done" => 0]);
+        }
+
+        return response()->json(["done" => 1]);
+    }
+
+    // For Alexa
+
+    public function getTemperatureHumidityData(Request $req) {
+        $temperature = Data::where("Key", "TEMPERATURE")->first();
+        $humidity = Data::where("Key", "HUMIDITY")->first();
+        return response()->json([
+            "temperature" => (float) $temperature["Value"],
+            "humidity" => (float) $humidity["Value"],
+        ]);
+    }
+
+    public function postIncubatorStatus(Request $req) {
+        $status = $req->input('status');
+
+        try {
+            Data::where("Key", "STATUS")->update(["Value" => $status]);
+        }
+        catch(Exception $e) {
+            return response()->json(["done" => 0]);
+        }
 
         return response()->json(["done" => 1]);
     }
