@@ -23,10 +23,10 @@ Route::get('/csrf_token', function () {
 });
 
 Route::get('/testGet', [IncubadoraController::class, "testGet"]);
-
 Route::post('/testPost', [IncubadoraController::class, "testPost"]);
-
 Route::put('/testPut', [IncubadoraController::class, "testPut"]);
-
 Route::delete('/testDelete', [IncubadoraController::class, "testDelete"]);
 
+
+Route::get('/status', [IncubadoraController::class, "getIncubatorStatus"]);
+Route::post('/tempAndHum', [IncubadoraController::class, "postTemperatureHumidityData"]);
